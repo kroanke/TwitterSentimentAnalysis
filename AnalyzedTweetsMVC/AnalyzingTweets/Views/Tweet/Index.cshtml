@@ -1,0 +1,121 @@
+﻿@model PagedList.IPagedList<AnalyzingTweets.Models.Tweet>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .pagination > li > a, .pagination > li > span {
+        color: #f2e1b4;
+    }
+</style>
+
+<hr style="border: 0" />
+
+<table class="table" style="color: #F2E1C1">
+    <tr>
+        <th style="text-align:center; font-size: 18px">
+            Number of Positive Tweets
+        </th>
+        <th style="        text-align: center;
+        font-size: 18px
+">
+            Number of Negative Tweets
+        <th style="        text-align: center;
+        font-size: 18px
+">
+            Number of Neutral Tweets
+        </th>
+        <th style="        text-align: center;
+        font-size: 18px
+">
+            Number of Total Tweets
+        </th>
+    </tr>
+
+
+    <tr>
+        <td style="text-align:center">
+            @AnalyzingTweets.Models.Tweet.positive_number
+        </td>
+        <td style="text-align:center">
+            @AnalyzingTweets.Models.Tweet.negative_number
+        </td>
+        <td style="text-align:center">
+            @AnalyzingTweets.Models.Tweet.neutral_number
+        </td>
+        <td style="text-align:center">
+            @AnalyzingTweets.Models.Tweet.total_number
+        </td>
+    </tr>
+
+
+</table>
+
+
+
+<table class="table" style="background-color: #5C527F; color: #F2E1C1">
+    <tr style="font-family:'Nirmala UI'">
+        <th style="        font-size: 24px;
+        text-align: center;
+        border-top-color: #5C527F;
+        border-right: 1px solid;
+        border-right-color: lightblue;
+    ">
+            Tweet
+        </th>
+        <th style="        font-size: 18px;
+        text-align: center;
+        border-color: #5C527F
+">
+            Analysis Value
+        <th style="        font-size: 18px;
+        text-align: center;
+        border-color: #5C527F
+">
+            Analysis Result
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="        font-family: 'Nirmala UI';
+        border-width: thin;
+        border-right: 1px solid;
+        border-color: lightblue;
+        font-size: 15px;
+    ">
+                @Html.DisplayFor(modelItem => item.tweet)
+            </td>
+            <td style="        text-align: center;
+        border-color: lightblue;
+        border-right: 0px;
+        border-width: thin
+    ">
+                @Html.DisplayFor(modelItem => item.polarity)
+            </td>
+            <td style="        color: #F2E1C1;
+        text-align: center;
+        border-color: lightblue;
+        border-left: 0px;
+        border-width: thin;
+">
+                <b>@Html.DisplayFor(modelItem => item.sentimentString)</b>
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<p style="color: #f2e1b4;">
+    <b>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</b>
+</p>
+<p class="paginationColour">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</p>
+

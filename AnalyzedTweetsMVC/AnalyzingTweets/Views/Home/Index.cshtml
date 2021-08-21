@@ -1,0 +1,129 @@
+﻿@{ ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "dark2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+
+	data: [{
+		type: "pie",
+		startAngle: 180,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabel: "{label} - {y}%",
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart.render();
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+	animationEnabled: true,
+	title: {
+        text: "𝗔𝗻𝗮𝗹𝘆𝘀𝗶𝘀 𝗥𝗲𝘀𝘂𝗹𝘁 𝗕𝘆 𝗧𝘄𝗲𝗲𝘁'𝘀 𝗖𝗿𝗲𝗮𝘁𝗲𝗱 𝗗𝗮𝘁𝗲"
+	},
+	toolTip: {
+		shared: true
+	},
+	data: [{
+		type: "line",
+		name: "Positive",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPointsPos)
+	}, {
+		type: "line",
+		name: "Negative",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPointsNeg)
+	}, {
+		type: "line",
+		name: "Neutral",
+		showInLegend: true,
+		dataPoints: @Html.Raw(ViewBag.DataPointsNeu)
+	}]
+});
+chart3.render();
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+	animationEnabled: true,
+	theme: "dark1", // "light1", "light2", "dark1", "dark2"
+	title: {
+		text: ""
+	},
+	axisY: {
+		title: "No. of Analysis Result"
+	},
+	data: [{
+		type: "column",
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart4.render();
+var chart5 = new CanvasJS.Chart("chartContainer5", {
+	animationEnabled: true,
+	theme: "dark1",
+	title: {
+
+	},
+	subtitles: [{
+
+	}],
+	axisY: {
+		title: "Percentage of Tweets",
+		gridThickness: 0
+	},
+	data: [{
+		type: "bar",
+		indexLabel: "{y}",
+		dataPoints: @Html.Raw(ViewBag.DataPoints)
+	}]
+});
+chart5.render();
+}
+
+
+    </script>
+
+
+
+
+</head>
+<body>
+    <div id="chartContainer3" class="star" style="width: 100%; height:750px; margin-bottom:100px; margin-top: 50px"></div>
+
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 star">
+                <div id="chartContainer" style="width: 100%; margin-bottom: 550px; margin-top: 100px"></div>
+            </div>
+            <div class="col-md-8 star">
+                <div id="chartContainer4" style="width: 100%; margin-bottom: 400px; margin-top: 30px; margin-left: 10px"></div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-12 star">
+                <div id="chartContainer5" style="width: 100%; margin-bottom: 500px; margin-top: 60px"></div>
+            </div>
+            
+        </div>
+        
+	</div>
+    
+
+
+
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
+</body>
+</html>
+
